@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: shoppingcart-service
+  server:
+    port: 9632
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url:  jdbc:mysql://localhost:3306/store_elect_shoppingcart?useSSL=false&allowPublicKeyRetrieval=true
+    username: admin
+    password: admin
+  serverTimeZone: UTC
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://eureka-sv:8761/eureka
+

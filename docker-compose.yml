@@ -1,0 +1,68 @@
+version: '1.0'
+
+services:
+  eureka-sv:
+    build: eureka-sv
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    networks:
+      - 'store-elect-network'
+  api-gateway:
+    build: api-gateway
+    mem_limit: 512m
+    ports:
+      - "442:442"
+    networks:
+      - 'store-elect-network'
+  products-service:
+    build: products-service
+    mem_limit: 512m
+    ports:
+      - "9631:9631"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_products"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  shoppingcart-service:
+    build: shoppingcart-service
+    mem_limit: 512m
+    ports:
+      - "9632:9632"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_shoppingcart"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  sales-service:
+    build: sales-service
+    mem_limit: 512m
+    ports:
+      - "9633:9633"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_sales"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+    
+# ESTO EN CASO DE QUE TODOS LOS SERVICIOS USEN LA MISMA DB    
+#  db:
+#    image: mysql:latest
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: store-elect-products
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: tu-contraseña-usuario
+
+networks:
+  store-elect-network:

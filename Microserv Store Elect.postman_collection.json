@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "6cfb2e21-c7dc-4c75-9f66-52b0431f1838",
+		"name": "Microserv Store Elect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31100741"
+	},
+	"item": [
+		{
+			"name": "Products - Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "/* {\r\n  \"product_code\": 1,\r\n  \"name\": \"Laptop\",\r\n  \"brand\": \"HP\",\r\n  \"price\": 999.99\r\n} */\r\n\r\n/* {\r\n  \"product_code\": 2,\r\n  \"name\": \"Refrigerator\",\r\n  \"brand\": \"Samsung\",\r\n  \"price\": 1499.99\r\n} */\r\n\r\n/* {\r\n  \"product_code\": 3,\r\n  \"name\": \"Smart TV\",\r\n  \"brand\": \"LG\",\r\n  \"price\": 899.99\r\n} */\r\n\r\n/* {\r\n  \"product_code\": 4,\r\n  \"name\": \"Washing Machine\",\r\n  \"brand\": \"Whirlpool\",\r\n  \"price\": 699.99\r\n} */\r\n\r\n/* {\r\n  \"product_code\": 5,\r\n  \"name\": \"Microwave Oven\",\r\n  \"brand\": \"Panasonic\",\r\n  \"price\": 129.99\r\n} */\r\n\r\n/* {\r\n  \"product_code\": 6,\r\n  \"name\": \"Test Product\",\r\n  \"brand\": \"Test\",\r\n  \"price\": 0.0\r\n} */\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9631/api/v1/products/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9631",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products - Find All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9631/api/v1/products/",
+					"host": [
+						"localhost"
+					],
+					"port": "9631",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products - Find By Name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "/* [\"Laptop\", \"Smart TV\"] */\r\n\r\n/* [\"Laptop\", \"Refrigerator\", \"Smart TV\", \"Washing Machine\", \"Microwave Oven\"] */\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9631/api/v1/products/find-by-names",
+					"host": [
+						"localhost"
+					],
+					"port": "9631",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"find-by-names"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products - Find By Code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9631/api/v1/products/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9631",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shopping Cart - Find All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9632/api/v1/shoppingcart/",
+					"host": [
+						"localhost"
+					],
+					"port": "9632",
+					"path": [
+						"api",
+						"v1",
+						"shoppingcart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shopping Cart - Find By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9632/api/v1/shoppingcart/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9632",
+					"path": [
+						"api",
+						"v1",
+						"shoppingcart",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shopping Cart - Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "/* {\r\n  \"cart_id\": 1,\r\n  \"list_products\": [\"Laptop\", \"Smart TV\"],\r\n  \"total_price\": 0\r\n  // \"total_price\": 1789.97\r\n} */\r\n\r\n/* {\r\n  \"cart_id\": 2,\r\n  \"list_products\": [\"Refrigerator\", \"Washing Machine\"],\r\n  \"total_price\": 0\r\n  // \"total_price\": 189.98\r\n} */\r\n\r\n/* {\r\n  \"cart_id\": 3,\r\n  \"list_products\": [\"Microwave Oven\", \"Refrigerator\"],\r\n  \"total_price\": 0\r\n  // \"total_price\": 674.97\r\n} */\r\n\r\n/* {\r\n  \"cart_id\": 4,\r\n  \"list_products\": [\"Laptop\", \"Refrigerator\", \"Smart TV\", \"Washing Machine\", \"Microwave Oven\"],\r\n  \"total_price\": 0\r\n  // \"total_price\": 674.97\r\n} */\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9632/api/v1/shoppingcart/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9632",
+					"path": [
+						"api",
+						"v1",
+						"shoppingcart",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sales - Find All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9633/api/v1/sales/",
+					"host": [
+						"localhost"
+					],
+					"port": "9633",
+					"path": [
+						"api",
+						"v1",
+						"sales",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sales - Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "/* {\r\n    \"sale_id\": 1,\r\n    \"sale_date\": \"2023-12-23\",\r\n    \"shoppingcart_id\": 1\r\n} */\r\n\r\n/* {\r\n    \"sale_id\": 2,\r\n    \"sale_date\": \"2023-12-26\",\r\n    \"shoppingcart_id\": 3\r\n} */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9633/api/v1/sales/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9633",
+					"path": [
+						"api",
+						"v1",
+						"sales",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

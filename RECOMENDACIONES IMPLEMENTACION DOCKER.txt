@@ -1,0 +1,134 @@
+### CONFIGURACIÓN ARCHIVO EJ SERVICIO CON DB MAPEAR IMAGEN DOCKER
+
+# DEFINIR IMAGEN/ENTORNO BASE PARA ARMADO DE PROYECTO
+FROM openjdk:17-jdk-slim
+
+# DEFINIR VARIABLES/PARAMETROS CONSTRUCCCION
+ARG JAR_FILE=target/products-service-0.0.1.jar
+
+# COPIA APP DENTRO DEL CONTENEDOR
+COPY ${JAR_FILE} app_products_service.jar
+
+# EJECUTAR AL INICIAR CONTENEDOR
+ENTRYPOINT ["java", "-jar", "app_products_service.jar"]
+
+# INDICAR PUERTO DISP COMUNICARNOS FUERA CONTENEDOR
+# EXPOSE
+
+
+
+
+
+### LUEGO DE OBTENER JAR (COMPILAR) PROYECTOS
+1. modificar url de conexión DB cambiando el anfitrión de LOCALHOST a la IP del equipo / servidor
+1.1 de esto: spring.datasource.url=jdbc:mysql://localhost:3306/store_elect_products?useSSL=false&allowPublicKeyRetrieval=true
+1.2 a esto: spring.datasource.url=jdbc:mysql://192.168.10.17:3306/store_elect_products?useSSL=false&allowPublicKeyRetrieval=true
+2. cambiar el anfitrión del cliente de comunicación con el servidor eureka
+2.1 de esto: eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+2.2 a esto: eureka.client.service-url.defaultZone=http://eureka-sv:8761/eureka
+
+
+
+
+
+### HABILITAR REGLAS DE ENTRADA DEL FIREWALL PARA PUERTO 3306
+### HABILITAR IP DE ANFITRIÓN PARA CADA DBs A USAR POR LOS SERVIVICIOS
+GRANT ALL PRIVILEGES ON tu_base_de_datos1.* TO 'tu_usuario'@'192.168.10.17' IDENTIFIED BY 'tu_contraseña';
+GRANT ALL PRIVILEGES ON tu_base_de_datos2.* TO 'tu_usuario'@'192.168.10.17' IDENTIFIED BY 'tu_contraseña';
+...
+FLUSH PRIVILEGES;
+
+
+
+
+
+### CONFIGURACIÓN ARCHIVO EJ DOCKER-COMPOSE MAPEAR SERVICIOS CON DB
+
+version: '1.0'
+
+services:
+  eureka-sv:
+    build: eureka-sv
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    networks:
+      - 'store-elect-network'
+  api-gateway:
+    build: api-gateway
+    mem_limit: 512m
+    ports:
+      - "442:442"
+    networks:
+      - 'store-elect-network'
+  products-service:
+    build: products-service
+    mem_limit: 512m
+    ports:
+      - "9631:9631"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_products"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  shoppingcart-service:
+    build: shoppingcart-service
+    mem_limit: 512m
+    ports:
+      - "9632:9632"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_shoppingcart"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  sales-service:
+    build: sales-service
+    mem_limit: 512m
+    ports:
+      - "9633:9633"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_sales"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+    
+# ESTO EN CASO DE QUE TODOS LOS SERVICIOS USEN LA MISMA DB    
+#  db:
+#    image: mysql:latest
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: store-elect-products
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: tu-contraseña-usuario
+
+networks:
+  store-elect-network:
+
+
+
+
+### PARA CREAR IMAGENES 
+docker-compose build
+
+
+
+
+
+### PARA SUBIR CONTENEDORES IMAGENES
+docker-compose up
+
+
+
+
+
+### PARA LIMPIAR CACHE EN CASO DE ELIMINAR IMAGENES
+docker builder prune -a

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: products-service
+  server:
+    port: 9631
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url:  jdbc:mysql://localhost:3306/store_elect_products?useSSL=false&allowPublicKeyRetrieval=true
+    username: admin
+    password: admin
+  serverTimeZone: UTC
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://eureka-sv:8761/eureka
