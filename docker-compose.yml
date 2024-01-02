@@ -15,8 +15,8 @@ services:
       - "442:442"
     networks:
       - 'store-elect-network'
-  products-service:
-    build: products-service
+  products-service-inst01:
+    build: products-service-inst01
     mem_limit: 512m
     ports:
       - "9631:9631"
@@ -28,11 +28,37 @@ services:
       SERVICE_DB_NAME: "store_elect_products"
       SERVICE_DB_USER: "root"
       SERVICE_DB_PASSWORD: "root"
-  shoppingcart-service:
-    build: shoppingcart-service
+  products-service-inst02:
+    build: products-service-inst02
+    mem_limit: 512m
+    ports:
+      - "1369:1369"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_products"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  shoppingcart-service-inst01:
+    build: shoppingcart-service-inst01
     mem_limit: 512m
     ports:
       - "9632:9632"
+    networks:
+      - 'store-elect-network'
+    environment:
+      SERVICE_DB_HOST: "192.168.10.17"  # Dirección IP de la máquina anfitriona
+      SERVICE_DB_PORT: "3306"
+      SERVICE_DB_NAME: "store_elect_shoppingcart"
+      SERVICE_DB_USER: "root"
+      SERVICE_DB_PASSWORD: "root"
+  shoppingcart-service-inst02:
+    build: shoppingcart-service-inst02
+    mem_limit: 512m
+    ports:
+      - "2369:2369"
     networks:
       - 'store-elect-network'
     environment:
