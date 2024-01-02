@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.store-elect</groupId>
-	<artifactId>products-service</artifactId>
+	<artifactId>shoppingcart-service-inst01</artifactId>
 	<version>0.0.1</version>
-	<name>products-service</name>
-	<description>Products Service - Store Electronic</description>
+	<name>shoppingcar-service</name>
+	<description>Shopping Car Service - Store Electronic</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
@@ -37,6 +37,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
 		<dependency>

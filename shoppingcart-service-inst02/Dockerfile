@@ -2,13 +2,13 @@
 FROM openjdk:17-jdk-slim
 
 # DEFINIR VARIABLES/PARAMETROS CONSTRUCCCION
-ARG JAR_FILE=target/products-service-0.0.1.jar
+ARG JAR_FILE=target/shoppingcart-service-inst02-0.0.1.jar
 
 # COPIA APP DENTRO DEL CONTENEDOR
-COPY ${JAR_FILE} app_products_service.jar
+COPY ${JAR_FILE} app_shoppingcart_service_inst02.jar
 
 # EJECUTAR AL INICIAR CONTENEDOR
-ENTRYPOINT ["java", "-jar", "app_products_service.jar"]
+ENTRYPOINT ["java", "-jar", "app_shoppingcart_service_inst02.jar"]
 
 # INDICAR PUERTO DISP COMUNICARNOS FUERA CONTENEDOR
 # EXPOSE

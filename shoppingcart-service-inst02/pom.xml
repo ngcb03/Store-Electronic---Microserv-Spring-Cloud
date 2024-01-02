@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.store-elect</groupId>
-	<artifactId>shoppingcart-service</artifactId>
+	<artifactId>shoppingcart-service-inst02</artifactId>
 	<version>0.0.1</version>
 	<name>shoppingcar-service</name>
 	<description>Shopping Car Service - Store Electronic</description>
